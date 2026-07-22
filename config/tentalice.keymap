@@ -135,6 +135,8 @@
 
 &scroll_runtime_input_processor {
     processor-label = "scroll";
+    x-codes = <INPUT_REL_X>;
+    y-codes = <INPUT_REL_Y>;
     xy-to-scroll-enabled;
     scale-multiplier = <1>;
     scale-divisor = <10>;
