@@ -15,7 +15,7 @@ manifest:
       import: app/west.yml
     - name: zmk-module-runtime-input-processor
       remote: cormoran
-      revision: main
+      revision: 80bb24984eda41b796d080df16f6f7c084aed04d
     - name: zmk-pmw3610-driver
       remote: cormoran
       revision: main
