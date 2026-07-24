@@ -1,6 +1,5 @@
 #include <dt-bindings/zmk/behaviors.h>
 #include <input/processors.dtsi>
-#include <input/processors/runtime-input-processor.dtsi>
 #include <scroll-snap.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors/sensor_rotation.dtsi>
@@ -99,7 +98,6 @@
             &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)
             &zip_temp_layer 4 100000
             &pointer_accel
-            &mouse_runtime_input_processor
             &zip_mouse_gesture
         >;
 
@@ -112,7 +110,6 @@
                 &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)
                 &zip_xy_to_scroll_mapper
                 &zip_scroll_scaler 1 10
-                &scroll_runtime_input_processor
                 &pointer_accel
                 &zip_scroll_snap
                 &zip_mouse_gesture
@@ -129,20 +126,6 @@
             rotation-angle = <30>;
         };
     };
-};
-
-&mouse_runtime_input_processor {
-    processor-label = "mouse";
-    scale-multiplier = <1>;
-    scale-divisor = <1>;
-};
-
-&scroll_runtime_input_processor {
-    processor-label = "scroll";
-    x-codes = <INPUT_REL_HWHEEL>;
-    y-codes = <INPUT_REL_WHEEL>;
-    scale-multiplier = <1>;
-    scale-divisor = <1>;
 };
 
 /* ビヘイビア・キーマップ関連 */
