@@ -2,6 +2,8 @@
 #include <input/processors.dtsi>
 #include <input/processors/runtime-input-processor.dtsi>
 #include <scroll-snap.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
+#include <input/processors/sensor_rotation.dtsi>
 #include <mouse-gesture.dtsi>
 #include <behaviors/input_gestures_accel.dtsi>
 #include <behaviors.dtsi>
@@ -93,9 +95,11 @@
         /* トラックボール操作でマウスレイヤー起動 */
 
         input-processors = <
-            &mouse_runtime_input_processor
+            &sensor_rotation
+            &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)
             &zip_temp_layer 4 100000
             &pointer_accel
+            &mouse_runtime_input_processor
             &zip_mouse_gesture
         >;
 
@@ -104,6 +108,10 @@
         scroll_mode {
             layers = <1 2>;
             input-processors = <
+                &sensor_rotation
+                &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)
+                &zip_xy_to_scroll_mapper
+                &zip_scroll_scaler 1 10
                 &scroll_runtime_input_processor
                 &pointer_accel
                 &zip_scroll_snap
@@ -112,29 +120,29 @@
         };
     };
 
+    input_processors {
+        /* トラックボールの角度調整 */
+
+        sensor_rotation: sensor_rotation {
+            compatible = "zmk,input-processor-sensor-rotation";
+            #input-processor-cells = <0>;
+            rotation-angle = <30>;
+        };
+    };
 };
 
 &mouse_runtime_input_processor {
     processor-label = "mouse";
-    x-codes = <INPUT_REL_X>;
-    y-codes = <INPUT_REL_Y>;
-    rotation-degrees = <30>;
-    xy-swap-enabled;
-    y-invert;
     scale-multiplier = <1>;
     scale-divisor = <1>;
 };
 
 &scroll_runtime_input_processor {
     processor-label = "scroll";
-    x-codes = <INPUT_REL_X>;
-    y-codes = <INPUT_REL_Y>;
-    rotation-degrees = <30>;
-    xy-swap-enabled;
-    y-invert;
-    xy-to-scroll-enabled;
+    x-codes = <INPUT_REL_HWHEEL>;
+    y-codes = <INPUT_REL_WHEEL>;
     scale-multiplier = <1>;
-    scale-divisor = <10>;
+    scale-divisor = <1>;
 };
 
 /* ビヘイビア・キーマップ関連 */

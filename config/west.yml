@@ -4,6 +4,8 @@ manifest:
       url-base: https://github.com/cormoran
     - name: kot149
       url-base: https://github.com/kot149
+    - name: hsgw
+      url-base: https://github.com/hsgw
     - name: oleksandrmaslov
       url-base: https://github.com/oleksandrmaslov
   projects:
@@ -23,6 +25,10 @@ manifest:
     - name: zmk-mouse-gesture
       remote: kot149
       revision: v1
+    - name: zmk-feature-sensor_rotation
+      remote: hsgw
+      revision: main
+      import: west.yml
     - name: zmk-pointing-acceleration
       remote: oleksandrmaslov
       revision: main
